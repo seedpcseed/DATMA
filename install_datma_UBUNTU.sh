@@ -31,6 +31,7 @@ mkdir bin
 #Trimmomatic
 wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.38.zip
 unzip Trimmomatic-0.38.zip
+rm Trimmomatic-0.38.zip
 
 #SDLS-lite
 echo 'Installing FM-index library'
@@ -47,6 +48,7 @@ cd selectFasta_v1
 make
 cp selectFasta ../bin/
 cd ..
+rm selectFasta_v1.zip
 
 #rdp-classifier
 echo 'Installing rdp-classifier'
@@ -65,6 +67,7 @@ cd RAPIFILT_v1
 make
 cp rapifilt ../bin/
 cd ..
+rm RAPIFILT_v1.zip
 
 #install mergeNotCombined
 echo 'Installing mergeNotCombined'
@@ -74,6 +77,7 @@ cd mergeNotCombined_v1
 make
 cp mergeNotCombined ../bin/
 cd ..
+rm mergeNotCombined_v1.zip
 
 #install clame
 echo "Installing CLAME"
@@ -104,6 +108,7 @@ make
 cp binning ../../bin/
 cd ..
 cd ..
+rm CLAME_v1.zip
 
 #Flash
 echo 'Installing Flash'
@@ -130,6 +135,7 @@ cd SPAdes-3.13.0
 pwd=`pwd`
 ln -s $pwd/spades.py ../bin/
 cd ..
+rm SPAdes-3.13.0.tar.gz
 
 #Velvet
 echo 'Installing Velvet'
@@ -146,6 +152,7 @@ tar -xzf quast-5.0.2.tar.gz
 cd quast-5.0.2
 ./setup.py install_full
 cd ..
+rm quast-5.0.2.tar.gz
 
 #Prodigal
 echo 'Installing Prodigal'
@@ -164,6 +171,7 @@ cd KronaTools-2.7/
 ./updateTaxonomy.sh
 ./updateAccessions.sh
 cd ..
+rm KronaTools-2.7.tar
 
 #Kaiju
 echo 'Installing Kaiju'
