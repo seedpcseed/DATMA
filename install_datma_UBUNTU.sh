@@ -1,33 +1,25 @@
-#!/bin/bash
-#DATMA 
-#Installation script
-#Please see the DATMA manual for details
-#
-
-#Installing dependencies
-#If you are using a different Linux distribution than Ubuntu
-#please modify the next lines according your distribution
 echo 'Installing dependencies'
-sudo apt-get update -y
-sudo apt-get install libz-dev
-sudo apt-get install libboost-iostreams-dev
-sudo apt-get install build-essential cmake
-sudo apt-get install curl
-sudo apt install ant
-sudo apt-get install zlib1g-dev
-sudo apt-get install -y pkg-config libfreetype6-dev libpng-dev python-matplotlib
-sudo pip install numpy
+apt-get update -y
+apt-get install libz-dev
+apt-get install libboost-iostreams-dev
+apt-get install build-essential cmake
+apt-get install curl
+apt-get install wget
+apt install ant
+apt-get install zlib1g-dev
+apt-get install -y pkg-config libfreetype6-dev libpng-dev python-matplotlib
+pip install numpy
 
 #install BWA
-sudo apt-get install -y bwa
+apt-get install -y bwa
 
 #install SAM Tools
-sudo apt-get install samtools
+apt-get install samtools
 
 #install CheckM
-sudo pip install checkm-genome
-sudo pip install checkm-genome --upgrade --no-deps
-sudo checkm data update
+pip install checkm-genome
+pip install checkm-genome --upgrade --no-deps
+checkm data update
 echo 'End dependencies'
 
 #Making the bin directory
@@ -39,7 +31,7 @@ mkdir bin
 wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.38.zip
 unzip Trimmomatic-0.38.zip
 
-#SDLS-lite 
+#SDLS-lite
 echo 'Installing FM-index library'
 git clone https://github.com/simongog/sdsl-lite.git
 cd sdsl-lite
@@ -133,7 +125,7 @@ echo 'Installing SPAdes'
 wget http://cab.spbu.ru/files/release3.13.0/SPAdes-3.13.0.tar.gz
 tar -xzf SPAdes-3.13.0.tar.gz
 cd SPAdes-3.13.0
-sudo ./spades_compile.sh
+./spades_compile.sh
 pwd=`pwd`
 ln -s $pwd/spades.py ../bin/
 cd ..
@@ -151,7 +143,7 @@ echo 'Installing QUAST tool'
 wget https://downloads.sourceforge.net/project/quast/quast-5.0.2.tar.gz
 tar -xzf quast-5.0.2.tar.gz
 cd quast-5.0.2
-sudo ./setup.py install_full
+./setup.py install_full
 cd ..
 
 #Prodigal
@@ -162,12 +154,12 @@ make
 cp prodigal ../bin/
 cd ..
 
-#krona 
+#krona
 echo 'Installing Krona'
 wget https://github.com/marbl/Krona/releases/download/v2.7/KronaTools-2.7.tar
 tar -xvf  KronaTools-2.7.tar
 cd KronaTools-2.7/
-sudo ./install.pl
+./install.pl
 ./updateTaxonomy.sh
 ./updateAccessions.sh
 cd ..
@@ -178,41 +170,41 @@ git clone https://github.com/bioinformatics-centre/kaiju.git
 cd kaiju/src/
 make
 cd ..
-read -p "Do you want to download the Kaiju database (~27GB)?: (Y/N) " ans   
+read -p "Do you want to download the Kaiju database (~27GB)?: (Y/N) " ans
 if [ "$ans" = 'Y' ] || [ "$ans" = 'y' ]; then
-    echo "Downloading locat kaijudb"
-    mkdir kaijudb
-    cd kaijudb
-    ../bin/makeDB.sh -r
-    rm -r genomes/
-    rm kaiju_db.bwt
-    rm kaiju_db.faa
-    rm kaiju_db.sa
-    cd ..
+  echo "Downloading locat kaijudb"
+  mkdir kaijudb
+  cd kaijudb
+  ../bin/makeDB.sh -r
+  rm -r genomes/
+  rm kaiju_db.bwt
+  rm kaiju_db.faa
+  rm kaiju_db.sa
+  cd ..
 else
-    echo "You can specify the Kaiju database using the configuration file"
+  echo "You can specify the Kaiju database using the configuration file"
 fi
 cp bin/* ../bin/
 cd ..
 
 #Blast
 echo 'Installing BLAST'
-sudo apt-get install ncbi-blast+
+apt-get install ncbi-blast+
 
 #update nt database
-read -p "Do you want to download the NT-database (~58GB)?: (Y/N) " ans   
+read -p "Do you want to download the NT-database (~58GB)?: (Y/N) " ans
 if [ "$ans" = 'Y' ] || [ "$ans" = 'y' ]; then
-    echo "Downloading locat NT"
-    git clone https://github.com/jrherr/bioinformatics_scripts.git
-    cp bioinformatics_scripts/perl_scripts/update_blastdb.pl bin/
-    chmod +x bin/update_blastdb.pl
-    cd ../
-    mkdir blastdb
-    cd blastdb
-    perl ../tools/bin/update_blastdb.pl --passive --decompress nt
-    cd ..
+  echo "Downloading locat NT"
+  git clone https://github.com/jrherr/bioinformatics_scripts.git
+  cp bioinformatics_scripts/perl_scripts/update_blastdb.pl bin/
+  chmod +x bin/update_blastdb.pl
+  cd ../
+  mkdir blastdb
+  cd blastdb
+  perl ../tools/bin/update_blastdb.pl --passive --decompress nt
+  cd ..
 else
-    echo "You can specify a local NT-database using the configuration file"
+  echo "You can specify a local NT-database using the configuration file"
 fi
 
 #FINISH
