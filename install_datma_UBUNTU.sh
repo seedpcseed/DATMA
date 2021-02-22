@@ -1,4 +1,5 @@
 echo 'Installing dependencies'
+cd /DATMA/tools
 apt-get update -y
 apt-get install libz-dev
 apt-get install libboost-iostreams-dev
